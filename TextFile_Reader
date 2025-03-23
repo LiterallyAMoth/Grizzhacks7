@@ -1,0 +1,19 @@
+from datetime import datetime
+import os
+
+date_list = []
+with open("assignments.txt", "r") as file:
+    for line in file:
+        line = line.replace("-", "")
+        year = line[0:4]
+        month = line[4:6]
+        day = line[6:8]
+        hour = line[8:10]
+        minute = line[10:12]
+        date_list.append(datetime(int(year), int(month), int(day), int(hour), int(minute)))
+
+now = datetime.now()
+
+homework_time = min(date_list, key=lambda x: abs(x - now))
+
+print(homework_time)
