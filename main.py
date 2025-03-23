@@ -16,20 +16,24 @@ buzzer = 16
 ControlPin = [7, 11, 13, 15]
 loop = True
 current_time = datetime.now()
-
+name = ""
+date = ""
+time = ""
 def log_assignment():
     name = assignment_txt.get()
     date = due_date_txt.get()
     time = due_time_txt.get()
-    text = f"{name}. {date}. {time}."
+    text = f"{name} is due at {date} {time}"
+    text = date + "-" + time
 
     if name and date and time:
         assignment_list.insert(tk.END, text)
     else:
         messagebox.showwarning("Missing Information", "Please fill out all fields.")
-
+    name = ""
 def save_to_file():
     with open(FILE_NAME, "w") as file:
+        
         for item in assignment_list.get(0, tk.END):
             file.write(item + "\n")
 
@@ -45,7 +49,7 @@ def Load_list():
 
 root = tk.Tk()
 root.title("")
-root.geometry("500x350")
+root.geometry("800x500")
 
 frame = ttk.Frame(root)
 frame.place(relx=0.5, rely=0.5, anchor="center")
@@ -131,18 +135,12 @@ def StepperMotor():
 
 
 while loop:
-        current_time = datetime.now()
-        if current_time == (homework_time - timedelta(hours=6)):
-            Buzzer(1)
-            time.sleep(2)
-            Buzzer(0)
-            StepperMotor()
-            time.sleep(.5)
-            Buzzer(1)  
-            time.sleep(0.005)
-            Buzzer(0)  
-            loop = False
-        time.sleep(60)
+        Buzzer(1)
+        Buzzer(0)
+        StepperMotor()
+        Buzzer(1)  
+        Buzzer(0)  
+        loop = False
 
         
 
